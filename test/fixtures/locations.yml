@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fragment: one
+  content: MyString
+  content_translated: MyString
+  updated_by: 1
+
+two:
+  fragment: two
+  content: MyString
+  content_translated: MyString
+  updated_by: 1

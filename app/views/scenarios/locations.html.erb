@@ -1,0 +1,31 @@
+<h1>Translate locations for <%= @scenario.name %></h1>
+
+<%= paginate @locations %>
+<table>
+  <thead>
+    <tr>
+      <th width="45%">Text</th>
+      <th width="45%">Translated text</th>
+      <th width="8%">Last update</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.content %></td>
+        <td><input type="text" id="txt<%= location.id %>" size=30 maxlength="63" value="<%= location.content_translated.to_s.tr('"', '\"') %>"></td>
+        <td id="upd<%= location.id %>">
+          <% unless location.updated_by.nil? %>
+            <%= location.updated_at.iso8601[0..9] %> by <%= location.updated_by_person %>
+          <% end %>
+        </td>
+        <td><button onclick="save_location(<%= location.id %>)">Save</button></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @locations %>
+
+<br>

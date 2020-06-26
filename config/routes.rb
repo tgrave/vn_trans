@@ -1,3 +1,24 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :scenarios do
+    member do
+      get :translate
+      get :locations
+      get :export
+    end
+    collection do
+      get 'build/:date', action: :build
+    end
+  end
+
+  resources :lines, only: [:update] do
+    member do
+      post :who
+    end
+  end
+
+  resources :locations, only: [:update]
+
+  devise_for :users
+
+  root to: 'scenarios#index'
 end

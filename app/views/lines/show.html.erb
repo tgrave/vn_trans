@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fragment:</strong>
+  <%= @line.fragment %>
+</p>
+
+<p>
+  <strong>Who:</strong>
+  <%= @line.who %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @line.content %>
+</p>
+
+<p>
+  <strong>Who translated:</strong>
+  <%= @line.who_translated %>
+</p>
+
+<p>
+  <strong>Content translated:</strong>
+  <%= @line.content_translated %>
+</p>
+
+<p>
+  <strong>Updated by:</strong>
+  <%= @line.updated_by %>
+</p>
+
+<%= link_to 'Edit', edit_line_path(@line) %> |
+<%= link_to 'Back', lines_path %>

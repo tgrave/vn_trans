@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Scenarios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Filename</th>
+      <th>Lines</th>
+      <th>Translated</th>
+      <th>Locations</th>
+      <th>Translated</th>
+      <th<%= current_user.admin? ? ' colspan="4"' : '' %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scenarios.each do |scenario| %>
+      <tr style="background-color:#<%= scenario.completion_color %>">
+        <td><%= scenario.name %></td>
+        <td><%= scenario.filename %></td>
+        <td><%= scenario.lines %></td>
+        <td><%= scenario.translated.to_i %> (<%= 100 * scenario.translated.to_i / scenario.lines.to_i %>%)</td>
+        <td><%= scenario.locations_count %></td>
+        <td><%= scenario.locations_translated.to_i %> (<%= 100 * scenario.locations_translated.to_i / (scenario.locations_count.to_i.zero? ? 1 : scenario.locations_count.to_i) %>%)</td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Show', scenario %></td>
+          <td><%= link_to 'Edit', edit_scenario_path(scenario) %></td>
+          <td><%= link_to 'Destroy', scenario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <td><%= link_to 'Translate', translate_scenario_path(scenario) %></td>
+        <td><%= link_to 'Locations', locations_scenario_path(scenario) %></td>
+        <td><%= link_to 'Export', export_scenario_path(scenario) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr style="font-weight: bold;">
+      <td>All scenarios</td>
+      <td></td>
+      <td><%= @scenarios.sum(&:lines) %></td>
+      <td><%= @scenarios.sum { |s| s.translated.to_i } %> (<%= 100 * @scenarios.sum { |s| s.translated.to_i } / @scenarios.sum(&:lines) %>%)</td>
+      <td><%= @scenarios.sum(&:locations_count) %></td>
+      <td><%= @scenarios.sum { |s| s.locations_translated.to_i } %> (<%= 100 * @scenarios.sum { |s| s.locations_translated.to_i } / (@scenarios.sum(&:locations_count).zero? ? 1 : @scenarios.sum(&:locations_count)) %>%)</td>
+      <td<%= current_user.admin? ? ' colspan="4"' : '' %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+<br>
+
+<% if current_user.admin? %>
+  <%= link_to 'New Scenario', new_scenario_path %>
+<% end %>

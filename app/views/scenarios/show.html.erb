@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @scenario.name %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @scenario.filename %>
+</p>
+
+<p>
+  <strong>Lines:</strong>
+  <%= @scenario.lines %>
+</p>
+
+<p>
+  <strong>Translated:</strong>
+  <%= @scenario.translated %>
+</p>
+
+<%= link_to 'Edit', edit_scenario_path(@scenario) %> |
+<%= link_to 'Back', scenarios_path %>

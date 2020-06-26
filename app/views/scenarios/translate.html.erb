@@ -1,0 +1,47 @@
+<h1>Translate fragments for <%= @scenario.name %></h1>
+
+<%= paginate @lines %>
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th width="38%">Text</th>
+      <th>Translated person</th>
+      <th></th>
+      <th width="38%">Translated text</th>
+      <th width="8%">Last update</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lines.each do |line| %>
+      <tr>
+        <td id="who<%= line.id %>"><%= line.who %></td>
+        <td><%= line.content.tr("\n", "<br>") %></td>
+        <td>
+          <% if line.who_translatable? %>
+            <input id="twho<%= line.id %>" type="text" size="12" value="<%= line.who_translated.to_s.tr('"', '\"') %>">
+          <% else %>
+            <%= line.who %>
+          <% end %>
+        </td>
+        <td>
+          <% if line.who_translatable? %>
+            <button onclick="change_who(<%= line.id %>)">Change all</button>
+          <% end %>
+        </td>
+        <td><textarea class="transarea" id="txt<%= line.id %>"><%= line.content_translated.to_s.tr('"', '\"') %></textarea></td>
+        <td id="upd<%= line.id %>">
+          <% unless line.updated_by.nil? %>
+            <%= line.updated_at.iso8601[0..9] %> by <%= line.updated_by_person %>
+          <% end %>
+        </td>
+        <td><button onclick="save_line(<%= line.id %>)">Save</button></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @lines %>
+
+<br>
